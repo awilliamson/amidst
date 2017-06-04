@@ -19,6 +19,7 @@ import amidst.documentation.NotThreadSafe;
 import amidst.gui.crash.CrashWindow;
 import amidst.gui.main.menu.MovePlayerPopupMenu;
 import amidst.gui.main.viewer.ViewerFacade;
+import amidst.gui.searchinseed.SearchInSeedWindow;
 import amidst.gui.seedsearcher.SeedSearcherWindow;
 import amidst.logging.AmidstLogger;
 import amidst.mojangapi.world.WorldSeed;
@@ -37,6 +38,7 @@ public class Actions {
 	private final MainWindowDialogs dialogs;
 	private final WorldSwitcher worldSwitcher;
 	private final SeedSearcherWindow seedSearcherWindow;
+	private final SearchInSeedWindow searchInSeedWindow;
 	private final Supplier<ViewerFacade> viewerFacadeSupplier;
 	private final BiomeProfileSelection biomeProfileSelection;
 
@@ -46,12 +48,14 @@ public class Actions {
 			MainWindowDialogs dialogs,
 			WorldSwitcher worldSwitcher,
 			SeedSearcherWindow seedSearcherWindow,
+			SearchInSeedWindow searchInSeedWindow,
 			Supplier<ViewerFacade> viewerFacadeSupplier,
 			BiomeProfileSelection biomeProfileSelection) {
 		this.application = application;
 		this.dialogs = dialogs;
 		this.worldSwitcher = worldSwitcher;
 		this.seedSearcherWindow = seedSearcherWindow;
+		this.searchInSeedWindow = searchInSeedWindow;
 		this.viewerFacadeSupplier = viewerFacadeSupplier;
 		this.biomeProfileSelection = biomeProfileSelection;
 	}
@@ -80,6 +84,11 @@ public class Actions {
 	@CalledOnlyBy(AmidstThread.EDT)
 	public void searchForRandom() {
 		seedSearcherWindow.show();
+	}
+
+	@CalledOnlyBy(AmidstThread.EDT)
+	public void searchWithinSeed() {
+		searchInSeedWindow.show();
 	}
 
 	@CalledOnlyBy(AmidstThread.EDT)
