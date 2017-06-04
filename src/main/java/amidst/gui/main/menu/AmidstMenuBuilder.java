@@ -1,6 +1,7 @@
 package amidst.gui.main.menu;
 
 import java.awt.event.KeyEvent;
+import java.security.Key;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -60,6 +61,9 @@ public class AmidstMenuBuilder {
 		Menus.item(result, actions::newFromRandom,         "New from random seed",     KeyEvent.VK_R, MenuShortcuts.NEW_FROM_RANDOM_SEED);
 		if (FeatureToggles.SEED_SEARCH) {
 			Menus.item(result, actions::searchForRandom,   "Search for random seed",   KeyEvent.VK_F, MenuShortcuts.SEARCH_FOR_RANDOM_SEED);
+		}
+		if ( FeatureToggles.SEARCH_IN_SEED){
+			Menus.item(result, actions::searchWithinSeed, "Search within seed", KeyEvent.VK_G, MenuShortcuts.SEARCH_WITHIN_SEED);
 		}
 		Menus.item(result, actions::openSaveGame,          "Open save game ...",       KeyEvent.VK_O, MenuShortcuts.OPEN_SAVE_GAME);
 		result.addSeparator();
