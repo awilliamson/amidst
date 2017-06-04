@@ -16,6 +16,8 @@ import amidst.documentation.NotThreadSafe;
 import amidst.gui.main.menu.AmidstMenu;
 import amidst.gui.main.menu.AmidstMenuBuilder;
 import amidst.gui.main.viewer.ViewerFacade;
+import amidst.gui.searchinseed.SearchInSeedWindow;
+import amidst.gui.searchinseed.SeedInSearcher;
 import amidst.gui.seedsearcher.SeedSearcher;
 import amidst.gui.seedsearcher.SeedSearcherWindow;
 import amidst.mojangapi.RunningLauncherProfile;
@@ -49,6 +51,8 @@ public class PerMainWindowInjector {
 	private final WorldSwitcher worldSwitcher;
 	private final SeedSearcher seedSearcher;
 	private final SeedSearcherWindow seedSearcherWindow;
+	private final SeedInSearcher seedInSearcher;
+	private final SearchInSeedWindow searchInSeedWindow;
 	private final Actions actions;
 	private final AmidstMenu menuBar;
 	private final MainWindow mainWindow;
@@ -89,11 +93,22 @@ public class PerMainWindowInjector {
 			this.seedSearcher = null;
 			this.seedSearcherWindow = null;
 		}
+
+		// Search in Seed Window
+		if (FeatureToggles.SEARCH_IN_SEED) {
+			this.seedInSearcher = new SeedInSearcher();
+			this.searchInSeedWindow = new SearchInSeedWindow(metadata, dialogs, worldSwitcher, null);
+		} else {
+			this.seedInSearcher = null;
+			this.searchInSeedWindow = null;
+		}
+
 		this.actions = new Actions(
 				application,
 				dialogs,
 				worldSwitcher,
 				seedSearcherWindow,
+				searchInSeedWindow,
 				viewerFacadeReference::get,
 				settings.biomeProfileSelection);
 		this.menuBar = new AmidstMenuBuilder(settings, actions, biomeProfileDirectory).construct();
